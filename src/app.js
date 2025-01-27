@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import { BrowserRouter, Route, Routes, Link } from "react-router";
 // import links from "./navlinks";
@@ -7,6 +7,7 @@ import navlinks from "./navlinks";
 export default function App() {
   let [state, setState] = useState(false);
   let [links, setLinks] = useState([...navlinks]);
+  let inputs = useRef(null);
 
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
@@ -29,7 +30,7 @@ export default function App() {
         document.removeEventListener("keydown", handler);
       }
 
-      if (e.key == "Meta") {
+      if (e.key == "Meta" || e.key == "Ctrl") {
         document.addEventListener("keydown", handler);
       }
     });
@@ -46,6 +47,10 @@ export default function App() {
   function Blog() {
     return <h2 key="blog">Blog</h2>;
   }
+
+  useEffect(() => {
+    if (state == true) inputs.current.focus();
+  }, [state]);
 
   function searchRoute(e) {
     setLinks((p) => {
@@ -81,8 +86,8 @@ export default function App() {
         <h1>Command Palette</h1>
         <p>Read the description to start solving the problem. 💯</p>
         <p className="desc">
-          <span>CMD + k</span> should open a Search Modal to navigate through
-          website pages.
+          <span>CMD + k / Ctrl + k</span> should open a Search Modal to navigate
+          through website pages.
         </p>
         <Routes>
           <Route index element={<Home />}></Route>
@@ -104,6 +109,7 @@ export default function App() {
         {state && (
           <div className="popup">
             <input
+              ref={inputs}
               type="text"
               placeholder="Search for the route here..."
               onChange={searchRoute}

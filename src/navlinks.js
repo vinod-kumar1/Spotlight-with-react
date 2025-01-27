@@ -1,7 +1,7 @@
 let navlinks = [
   {
     name: "Home",
-    link: "/home",
+    link: "/",
   },
   {
     name: "About",
