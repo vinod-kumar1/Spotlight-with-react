@@ -1,15 +1,20 @@
 {
   "name": "jstest",
   "version": "1.0.0",
+  "homepage": "https://vinod-kumar1.github.io/Spotlight-with-react",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
+    "pre-deploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.1.3"
